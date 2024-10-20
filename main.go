@@ -1,18 +1,14 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/Babiel09/Gin-rest-api/models"
+	"github.com/Babiel09/Gin-rest-api/routes"
 )
 
-func ExibeAmigos(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"id":   1,
-		"nome": "Vitor",
-	})
-}
-
 func main() {
-	request := gin.Default()
-	request.GET("/amigos", ExibeAmigos)
-	request.Run(":8000")
+	models.Amigos = []models.Amigo{
+		{Id: 1, Nome: "Vitor", Divertido: true},
+		{Id: 2, Nome: "Clarice", Divertido: true},
+	}
+	routes.HandleRequests()
 }
