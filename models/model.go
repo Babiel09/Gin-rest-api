@@ -1,11 +1,9 @@
 package models
 
+import "gorm.io/gorm"
+
 type Amigo struct {
-	Id        int    `json:"id"`
+	gorm.Model
 	Nome      string `json:"nome"`
 	Divertido bool   `json:"divertido"`
 }
-
-//Definindo o slice:
-
-var Amigos []Amigo

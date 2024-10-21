@@ -7,7 +7,9 @@ import (
 
 func HandleRequests() {
 	request := gin.Default()
-	request.GET("/amigos", controllers.ExibeAmigos)
+	request.GET("/amigos", controllers.GetAmigos)
+	request.GET("/amigos/:id", controllers.GetperIdAmigos)
+	request.POST("/amigos", controllers.PostAmigos)
 	request.GET("/:nome", controllers.Saudacao)
-	request.Run(":8000")
+	request.Run()
 }
