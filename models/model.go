@@ -1,9 +1,7 @@
 package models
 
-import "gorm.io/gorm"
-
 type Amigo struct {
-	gorm.Model
+	ID        uint   `json:"id" gorm:"primaryKey"`
 	Nome      string `json:"nome"`
 	Divertido bool   `json:"divertido"`
 }

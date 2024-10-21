@@ -9,12 +9,7 @@ import (
 // Get
 func GetAmigos(c *gin.Context) {
 	var amigoGet []models.Amigo //PEga todos os alunos
-	if err := c.ShouldBindJSON(&amigoGet); err != nil {
-		c.JSON(400, gin.H{
-			"err": err,
-		})
-		return
-	}
+	//Procura no banco de dados
 	database.DB.Find(&amigoGet)
 	c.JSON(200, amigoGet)
 }
@@ -24,13 +19,15 @@ func GetAmigos(c *gin.Context) {
 func GetperIdAmigos(c *gin.Context) {
 	var amigo models.Amigo
 	id := c.Params.ByName("id")
+	//Busca primeiro
+	database.DB.First(&amigo, id)
+	//Depoism mostra o erro
 	if amigo.ID == 0 {
 		c.JSON(404, gin.H{
 			"err": "Amigo não encontrado",
 		})
 		return
 	}
-	database.DB.First(&amigo, id)
 	c.JSON(200, amigo)
 }
 
