@@ -10,6 +10,9 @@ func HandleRequests() {
 	request.GET("/amigos", controllers.GetAmigos)
 	request.GET("/amigos/:id", controllers.GetperIdAmigos)
 	request.POST("/amigos", controllers.PostAmigos)
+	request.DELETE("/amigos/:id", controllers.DeleteAmigos)
+	request.PATCH("/amigos/:id", controllers.PatchAmigosNome)
+	request.PUT("/amigos/:id", controllers.PutAmigosNome)
 	request.GET("/:nome", controllers.Saudacao)
 	request.Run()
 }
