@@ -65,7 +65,7 @@ func PatchAmigosNome(c *gin.Context) {
 		c.JSON(500, gin.H{"err": err})
 	}
 	//Implmenta as atualizações caso a informação exista
-	database.DB.Model(&amigoPatch).UpdateColumn(amigoPatch.Nome, amigoPatch)
+	database.DB.Model(&amigoPatch).UpdateColumn("nome", amigoPatch.Nome)
 	c.JSON(200, amigoPatch)
 }
 
@@ -83,6 +83,20 @@ func PutAmigosNome(c *gin.Context) {
 	//Caso ache as informações no banco de dados
 	database.DB.Model(&amigoPut).Updates(amigoPut)
 	c.JSON(200, amigoPut)
+}
+
+// Get
+func GetAmigoNome(c *gin.Context) {
+	var amigoNome models.Amigo
+	nome := c.Params.ByName("nome")
+	//Procuro no database o nome
+	database.DB.Where(&models.Amigo{Nome: nome}).First(&amigoNome, nome)
+	//Verifica se há erro
+	if amigoNome.ID == 0 {
+		c.JSON(400, gin.H{"err": "nome não encontrado"})
+	}
+	//Caso não tenha nenhum erro
+	c.JSON(200, amigoNome)
 }
 
 // Função para aprender sobre params
